@@ -5,7 +5,7 @@
 
 - Dans le monde avec contraintes, on peut utiliser un graphe dont les arêtes représentent les déplacements possibles du drone, soit en utilisant une variante graphe où les arêtes correspondent à des chemins entre les villages, soit en utilisant une variante obstacle où les arêtes ne peuvent traverser les zones interdites par les obstacles.
 
-Il faut aussi dans les deux cas stocker d'autres informations comme l'emplacement des villages par exemple.
+Il faut aussi dans les deux cas stocker d'autres informations comme l'emplacement des villages et des drones par exemple.
 
 ## Algorithme de parcours
 L'algorithme de parcours que l'on peut utiliser pour résoudre ce problème est l'algorithme de Dijkstra, qui permet de trouver le chemin le plus court entre deux sommets dans un graphe pondéré. Dans notre cas, les poids des arêtes pourraient représenter les temps de déplacement entre les villages.
@@ -15,10 +15,20 @@ Le problème de graphe qui ressemble le plus à notre problème est le problème
 
 ## Temps d'acheminement
 
+To do
+
 # Partie 2
 
 Dans le code (fichier `graph_encoding.py`).
 
 # Partie 3
 
+To do
+
 # Partie 4
+
+To do
+
+# Rapport
+
+Lien rapport : [rapport.tex](https://www.overleaf.com/2785759683mbxscjmzxbbp "Overleaf").
