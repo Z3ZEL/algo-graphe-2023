@@ -21,6 +21,7 @@ def decode_graph_file(N, filename):
                 coords = coords_str.split(';')
                 x1, y1 = map(int, coords[0][1:-1].split(','))
                 x2, y2 = map(int, coords[1][2:-1].split(','))
+                graph.remove_edge([x1,x2],[y1,y2])
                 for i in range(x1, x2 + 1):
                     for j in range(y1, y2 + 1):
                         graph.world[i][j] = 'X'
@@ -46,6 +47,4 @@ def decode_graph_file(N, filename):
 graph = decode_graph_file(10, 'world.txt')
 graph.print_data()
 graph.print_world()
-graph.print_vilage_constrains()
 # graph.print_adj_matrix()
-# graph.print_adj_matrix_readable()
