@@ -1,10 +1,37 @@
 class Graph_drone:
+    def __init_adj_matrix(self):
+        for i in range(self.num_vertices):
+            if i%self.N != self.N - 1:
+                self.adj_matrix[i][i+1] = 1
+            if i%self.N != 0:
+                self.adj_matrix[i][i-1] = 1
+            if i < self.num_vertices - self.N:
+                self.adj_matrix[i][i+self.N] = 1
+            if i >= self.N:
+                self.adj_matrix[i][i-self.N] = 1
+            if i < self.num_vertices - self.N and i%self.N != self.N - 1:
+                self.adj_matrix[i][i+self.N+1] = 1
+            if i < self.num_vertices - self.N and i%self.N != 0:
+                self.adj_matrix[i][i+self.N-1] = 1
+            if i >= self.N and i%self.N != self.N - 1:
+                self.adj_matrix[i][i-self.N+1] = 1
+            if i >= self.N and i%self.N != 0:
+                self.adj_matrix[i][i-self.N-1] = 1
+        
+
     def __init__(self, N):
         self.num_vertices = N * N
+        self.N = N
         self.adj_matrix = [[0 for _ in range(self.num_vertices)] for _ in range(self.num_vertices)]
+        self.__init_adj_matrix()
         self.world = [[0 for _ in range(N)] for _ in range(N)]
         self.villages = {}
         self.drones = []
+
+    def pos_to_index(self, x, y):
+        pass
+    def index_to_pos(self, index):
+        pass
 
     def add_edge(self, v1, v2, weight=1):
         self.adj_matrix[v1][v2] = weight
@@ -53,6 +80,13 @@ class Graph_drone:
         for i in range(len(self.world)):
             for j in range(len(self.world[0])):
                 print(self.world[i][j], end=' ')
+            print()
+
+    def print_adj_matrix(self):
+        print("Adjacency Matrix :")
+        for i in range(len(self.adj_matrix)):
+            for j in range(len(self.adj_matrix[0])):
+                print(self.adj_matrix[i][j], end=' ')
             print()
 
     def print_data(self):

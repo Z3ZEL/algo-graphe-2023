@@ -30,3 +30,4 @@ def decode_graph_file(N, filename):
 graph = decode_graph_file(10, 'world.txt')
 graph.print_data()
 graph.print_world()
+# graph.print_adj_matrix()
