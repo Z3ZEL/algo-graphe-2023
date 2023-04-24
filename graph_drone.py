@@ -27,7 +27,6 @@ class Graph_drone:
         self.world = [[0 for _ in range(N)] for _ in range(N)]
         self.villages = {}
         self.drones = []
-        self.wall = []
 
     def pos_to_index(self, x, y):
         pass
@@ -48,10 +47,7 @@ class Graph_drone:
             if self.adj_matrix[v][i] > 0:
                 adjacent_vertices.append(i)
         return adjacent_vertices
-
-    def add_wall(self,v1,v2):
-        self.wall = [v1,v2]
-        
+    
     def get_edge_weight(self, v1, v2):
         return self.adj_matrix[v1][v2]
     
