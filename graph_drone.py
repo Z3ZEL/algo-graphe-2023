@@ -24,6 +24,7 @@ class Graph_drone:
         self.__init_adj_matrix()
         self.world = [[0 for _ in range(N)] for _ in range(N)]
         self.villages = {}
+        self.villages_constrain = []
         self.drones = []
 
     def pos_to_index(self, x, y):
@@ -61,6 +62,30 @@ class Graph_drone:
     def remove_village(self, village):
         del self.villages[village]
 
+    ###-----CONSTRAINS-----
+    def init_village_constrains(self):
+        '''Init all vilage constrains, by default everything is set to 1, there is no constrain, all villages can be reached from any village'''
+        self.remove_all_village_constrains()
+        for i in range(len(self.villages_constrain)):
+            for j in  range(len(self.villages_constrain[0])):
+                self.villages_constrain[i][j] = 1
+    def remove_all_village_constrains(self):
+        '''Set village constrains to 0, nothing can be reached'''
+        self.villages_constrain = [[0 for _ in range(len(self.villages))] for _ in range(len(self.villages))]
+    def add_village_constrain(self, src, dst):
+        '''Add a constrain from src to dst, the village dst can be reached from the src village'''
+        self.villages_constrain[src][dst] = 1
+    def remove_village_constrain(self, src, dst):
+        '''Remove a constrain from the src to dst, the village dst can be no longer reachable from the village src'''
+        self.villages_constrain[src][dst] = 0
+    def can_reach_village(self, src, dst):
+        '''Return true if the village dst can be reached from the src village'''
+        return self.villages_constrain[src][dst] == 1
+    
+
+
+    ###--------------------
+
     def add_drone(self, drone):
         self.drones.append(drone)
 
@@ -79,7 +104,12 @@ class Graph_drone:
             for j in range(len(self.world[0])):
                 print(self.world[i][j], end=' ')
             print()
-
+    def print_matrix(matrix):
+        '''Print any matrix'''
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                print(matrix[i][j], end=' ')
+            print()
     def print_adj_matrix(self):
         '''
         Print the adj matrix
@@ -100,14 +130,15 @@ class Graph_drone:
                 if self.adj_matrix[i][j] != 0:
                     print(self.index_to_pos(j), end=' ')
             print()
-
-
     def print_data(self):
         print("Villages :", self.villages)
         print("Drones :", self.drones)
-
+    def print_vilage_constrains(self):
+        for i in range(len(self.villages_constrain)):
+            for j in range(len(self.villages_constrain[0])):
+                if(self.villages_constrain[i][j] == 1):
+                    print(i + ' --> ' + j)
     def __len__(self):
         return self.num_vertices
-
     def __str__(self):
         return str(self.adj_matrix)
