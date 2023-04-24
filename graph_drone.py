@@ -77,12 +77,18 @@ class Graph_drone:
         self.villages_constrain = [[0 for _ in range(len(self.villages))] for _ in range(len(self.villages))]
     def add_village_constrain(self, src, dst):
         '''Add a constrain from src to dst, the village dst can be reached from the src village'''
+        src -= 1
+        dst -= 1
         self.villages_constrain[src][dst] = 1
     def remove_village_constrain(self, src, dst):
         '''Remove a constrain from the src to dst, the village dst can be no longer reachable from the village src'''
+        src -= 1
+        dst -= 1
         self.villages_constrain[src][dst] = 0
     def can_reach_village(self, src, dst):
         '''Return true if the village dst can be reached from the src village'''
+        src -= 1
+        dst -= 1
         return self.villages_constrain[src][dst] == 1
     
 
