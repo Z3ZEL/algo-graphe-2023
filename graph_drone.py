@@ -51,7 +51,7 @@ class Graph_drone:
     def add_wall(self,x1,y1,x2,y2):
         for x in range(x1,x2+1):
             for y in range(y1,y2+1):
-                index = self.index_to_pos(x,y)
+                index = self.pos_to_index(x,y)
                 for neigh in self.get_adjacent_vertices(index):
                     self.remove_edge(index,neigh)
     
