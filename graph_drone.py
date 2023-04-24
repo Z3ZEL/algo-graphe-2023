@@ -34,7 +34,7 @@ class Graph_drone:
     def index_to_pos(self, index):
         return (index%self.N, index//self.N)
     
-    
+
     def add_edge(self, v1, v2, weight=1):
         self.adj_matrix[v1][v2] = weight
         self.adj_matrix[v2][v1] = weight
@@ -134,10 +134,11 @@ class Graph_drone:
         print("Villages :", self.villages)
         print("Drones :", self.drones)
     def print_vilage_constrains(self):
+        print("Village constrains :")
         for i in range(len(self.villages_constrain)):
             for j in range(len(self.villages_constrain[0])):
                 if(self.villages_constrain[i][j] == 1):
-                    print(i + ' --> ' + j)
+                    print(str(i) + ' --> ' + str(j))
     def __len__(self):
         return self.num_vertices
     def __str__(self):
