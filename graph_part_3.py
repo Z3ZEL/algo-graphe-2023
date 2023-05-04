@@ -13,9 +13,9 @@ village_number = 3
 
 world_string = ''
 
-for i in range(village_number):
+for x in range(village_number):
     (x, y) = (random.randint(0,N-1), random.randint(0,N-1))
-    world_string += str(i+1)+': (' +str(x)+','+str(y)+')\n'
+    world_string += str(x+1)+': (' +str(x)+','+str(y)+')\n'
     world_string += 'D: '+'(' +str(x)+','+str(y)+')\n'
     
 graph = decode_graph_string(N, world_string)

@@ -34,6 +34,14 @@ class Graph_drone:
     def index_to_pos(self, index):
         return (index%self.N, index//self.N)
     
+    def is_wall(self, x, y):
+        i = self.pos_to_index(x,y)
+        for r in range(self.num_vertices):
+            if(self.adj_matrix[i][r] != 0):
+                return False
+            if(self.adj_matrix[r][i] != 0):
+                return False
+        return True
 
     def add_edge(self, v1, v2, weight=1):
         self.adj_matrix[v1][v2] = weight
@@ -109,10 +117,24 @@ class Graph_drone:
 
     def print_world(self):
         print("World :")
-        for i in range(len(self.world)):
-            for j in range(len(self.world[0])):
-                print(self.world[i][j], end=' ')
+        world_string = [[0 for _ in range(self.N)] for _ in range(self.N)]
+        for x in range(self.N):
+            for y in range(self.N):
+                if self.is_wall(y, x):
+                    world_string[x][y] = 'X'
+                else:
+                    world_string[x][y] = '0' 
+        for village in self.villages:
+            (x, y) = self.villages[village]
+            world_string[y][x] = village
+        for drone in self.drones:
+            (x, y) = drone
+            world_string[y][x] = 'D'
+        for x in range(self.N):
+            for y in range(self.N):
+                print(world_string[x][y], end=' ')
             print()
+
     def print_matrix(matrix):
         '''Print any matrix'''
         for i in range(len(matrix)):
