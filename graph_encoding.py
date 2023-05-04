@@ -22,6 +22,12 @@ def decode_graph_line(graph, village_constrains, line):
             for i in range(y1, y2 + 1):
                 graph.world[i][j] = 'X'
     elif entity == 'E':
+        #Check if there is a 'R' in constrain and replace it by -1
+        line = line.replace('R', '0')
+
+        
+
+
         v1, v2 = map(int, line.split(':')[1].strip()[1:-1].split(','))
         village_constrains.append((v1,v2))
         
@@ -36,7 +42,7 @@ def make_constrains(graph, village_constrains):
         graph.remove_all_village_constrains()
         for constrain in village_constrains:
             (v1,v2) = constrain
-            graph.add_village_constrain(v1, v2)
+            graph.add_village_constrain(v1+1, v2+1)
 
 
 def decode_graph_file(N, filename):
@@ -63,10 +69,6 @@ def decode_graph_string(N, strings):
             
 
 
-graph = decode_graph_file(10, 'world.txt')
-graph.print_data()
-graph.print_world()
-graph.print_adj_matrix_readable()
 
 
     

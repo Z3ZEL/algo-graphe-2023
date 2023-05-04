@@ -68,8 +68,8 @@ class Graph_drone:
     def get_edge_weight(self, v1, v2):
         return self.adj_matrix[v1][v2]
     
-    def add_village(self, village, x, y):
-        self.villages[village] = (x, y)
+    def add_village(self, index, x, y):
+        self.villages[index] = (x, y)
 
     def get_village(self, village):
         return self.villages[village]
@@ -89,7 +89,7 @@ class Graph_drone:
                 self.villages_constrain[i][j] = 1
     def remove_all_village_constrains(self):
         '''Set village constrains to 0, nothing can be reached'''
-        self.villages_constrain = [[0 for _ in range(len(self.villages))] for _ in range(len(self.villages))]
+        self.villages_constrain = [[0 for _ in range(len(self.villages)+1)] for _ in range(len(self.villages)+1)]
     def add_village_constrain(self, src, dst):
         '''Add a constrain from src to dst, the village dst can be reached from the src village'''
         src -= 1
@@ -113,8 +113,11 @@ class Graph_drone:
     def add_drone(self, drone):
         self.drones.append(drone)
 
-    def get_drone(self, drone):
-        return self.drones[drone]
+    def get_drone(self, index):
+        return self.drones[index]
+    
+    def move_drone(self, index, x, y):
+        self.drones[index] = (x, y)
     
     def get_drones(self):
         return self.drones
