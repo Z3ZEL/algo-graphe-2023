@@ -32,7 +32,7 @@ Ach_Mess(G: graphe, s: arête, d: arête, K: tournée): entier
         acc = pro
         pro = sommet_suiv_poids_min(G, acc);
     retourner t;
-Cet algorithme prend en paramètre un graphe G, le sommet source s, le sommet de destination d, et le nombre de tournée K. Le principe est le suivant: on parcourt le graphe en passant à chaque fois par l'arc possèdant le poids le plus faible en retenant dans un tableau le nom de l'arc emprunté et du sommet visité afin de visité chaque arc et chaque sommet une seule fois lors d'une tournée afin de récupérer et transmettre les messages de la tournée en cours, puis on somme les poids des arcs visités afin d'obtenir le temps d'acheminement.
+Cet algorithme prend en paramètre un graphe G, le sommet source s, le sommet de destination d, et le nombre de tournée K. Le principe est le suivant: on parcourt le graphe en passant à chaque fois par l'arc possèdant le poids le plus faible en retenant dans un tableau le nom de l'arc emprunté et du sommet visité afin de visité chaque arc et chaque sommet une seule fois lors d'une tournée afin de récupérer et transmettre les messages de la tournée en cours, puis on somme les poids des arcs visités afin d'obtenir le temps d'acheminement. Cet algorithme ne prend pas en compte les changements de drones, pour inclure les changements de drones, on peut penser que chaque drones dépose ses messages à transmettre à chaque points où il doit le faire et sait quand il doit reprendre un message à un point donné. Ainsi, lorsqu'un drone doit récupérer quelque chose à un point il le fait lors de son passage.
 Le temps T de notre algorithme est O(T) = K*n*m avec n : le nombre de sommets et m: le nombre d'arêtes
 
 # Partie 2
