@@ -34,6 +34,14 @@ class Graph_drone:
     def index_to_pos(self, index):
         return (index%self.N, index//self.N)
     
+    def is_wall(self, x, y):
+        i = self.pos_to_index(x,y)
+        for r in range(self.num_vertices):
+            if(self.adj_matrix[i][r] != 0):
+                return False
+            if(self.adj_matrix[r][i] != 0):
+                return False
+        return True
 
     def add_edge(self, v1, v2, weight=1):
         self.adj_matrix[v1][v2] = weight
@@ -50,11 +58,18 @@ class Graph_drone:
                 adjacent_vertices.append(i)
         return adjacent_vertices
     
+    def add_wall(self,x1,y1,x2,y2):
+        for x in range(x1,x2+1):
+            for y in range(y1,y2+1):
+                index = self.pos_to_index(x,y)
+                for neigh in self.get_adjacent_vertices(index):
+                    self.remove_edge(index,neigh)
+    
     def get_edge_weight(self, v1, v2):
         return self.adj_matrix[v1][v2]
     
-    def add_village(self, village, x, y):
-        self.villages[village] = (x, y)
+    def add_village(self, index, x, y):
+        self.villages[index] = (x, y)
 
     def get_village(self, village):
         return self.villages[village]
@@ -74,7 +89,7 @@ class Graph_drone:
                 self.villages_constrain[i][j] = 1
     def remove_all_village_constrains(self):
         '''Set village constrains to 0, nothing can be reached'''
-        self.villages_constrain = [[0 for _ in range(len(self.villages))] for _ in range(len(self.villages))]
+        self.villages_constrain = [[0 for _ in range(len(self.villages)+1)] for _ in range(len(self.villages)+1)]
     def add_village_constrain(self, src, dst):
         '''Add a constrain from src to dst, the village dst can be reached from the src village'''
         src -= 1
@@ -98,8 +113,11 @@ class Graph_drone:
     def add_drone(self, drone):
         self.drones.append(drone)
 
-    def get_drone(self, drone):
-        return self.drones[drone]
+    def get_drone(self, index):
+        return self.drones[index]
+    
+    def move_drone(self, index, x, y):
+        self.drones[index] = (x, y)
     
     def get_drones(self):
         return self.drones
@@ -109,10 +127,30 @@ class Graph_drone:
 
     def print_world(self):
         print("World :")
-        for i in range(len(self.world)):
-            for j in range(len(self.world[0])):
-                print(self.world[i][j], end=' ')
-            print()
+        world_string = [[0 for _ in range(self.N)] for _ in range(self.N)]
+        for x in range(self.N):
+            for y in range(self.N):
+                if self.is_wall(x, y):
+                    world_string[y][x] = 'X'
+                else:
+                    world_string[y][x] = '0' 
+        for village in self.villages:
+            (x, y) = self.villages[village]
+            world_string[y][x] = village
+        for drone in self.drones:
+            (x, y) = drone
+            world_string[y][x] = 'D'
+        for x in range(self.N):
+            for y in range(self.N):
+                print(world_string[x][y], end=' ')
+            print("- "+str(x))
+        for _ in range(self.N):
+            print("-", end=' ')
+        print()
+        for x in range(self.N):
+            print(x, end=' ')
+        print()
+
     def print_matrix(matrix):
         '''Print any matrix'''
         for i in range(len(matrix)):
