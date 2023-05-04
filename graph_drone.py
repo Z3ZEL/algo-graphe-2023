@@ -127,10 +127,10 @@ class Graph_drone:
         world_string = [[0 for _ in range(self.N)] for _ in range(self.N)]
         for x in range(self.N):
             for y in range(self.N):
-                if self.is_wall(y, x):
-                    world_string[x][y] = 'X'
+                if self.is_wall(x, y):
+                    world_string[y][x] = 'X'
                 else:
-                    world_string[x][y] = '0' 
+                    world_string[y][x] = '0' 
         for village in self.villages:
             (x, y) = self.villages[village]
             world_string[y][x] = village
@@ -140,7 +140,13 @@ class Graph_drone:
         for x in range(self.N):
             for y in range(self.N):
                 print(world_string[x][y], end=' ')
-            print()
+            print("- "+str(x))
+        for _ in range(self.N):
+            print("-", end=' ')
+        print()
+        for x in range(self.N):
+            print(x, end=' ')
+        print()
 
     def print_matrix(matrix):
         '''Print any matrix'''
