@@ -30,10 +30,11 @@ class Graph_drone:
         self.drones = []
 
     def pos_to_index(self, x, y):
-        pass
+        return self.N * y + x
     def index_to_pos(self, index):
-        pass
-
+        return (index%self.N, index//self.N)
+    
+    
     def add_edge(self, v1, v2, weight=1):
         self.adj_matrix[v1][v2] = weight
         self.adj_matrix[v2][v1] = weight
