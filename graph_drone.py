@@ -58,6 +58,13 @@ class Graph_drone:
                 adjacent_vertices.append(i)
         return adjacent_vertices
     
+    def add_wall(self,x1,y1,x2,y2):
+        for x in range(x1,x2+1):
+            for y in range(y1,y2+1):
+                index = self.pos_to_index(x,y)
+                for neigh in self.get_adjacent_vertices(index):
+                    self.remove_edge(index,neigh)
+    
     def get_edge_weight(self, v1, v2):
         return self.adj_matrix[v1][v2]
     
