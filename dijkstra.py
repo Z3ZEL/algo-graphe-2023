@@ -14,7 +14,6 @@ class Dijkstra:
 
     def get_next_vertex(self, distance, visited, start_index):
         vertices = self.get_adjacent_vertices(start_index)
-        print(vertices)
         min_distance = -1
         min_index = -1
         for i in vertices:
@@ -37,8 +36,7 @@ class Dijkstra:
         #init start position
 
         start_index = self.graph.pos_to_index(start_pos[0], start_pos[1])
-        print(start_index)
-
+        
         distance[start_index] = 0  #set distance to 0
         visited[start_index] = True  #set visited to True
 
@@ -48,22 +46,19 @@ class Dijkstra:
         map[start_pos[0]][start_pos[1]] = 0 #DISTANCE FROM START TO START IS 0
 
         current = start_index
-        while True:
-            adjacent_vertices = self.get_adjacent_vertices(start_index)
+        while current != -1:
+            adjacent_vertices = self.get_adjacent_vertices(current)
             for i in adjacent_vertices:
                 if not visited[i]:
                     if distance[i] == -1 or distance[i] > distance[current] + self.graph.adj_matrix[current][i]:
                         distance[i] = distance[current] + self.graph.adj_matrix[current][i]
                     
             visited[current] = True
-            current = self.get_next_vertex(distance, visited, start_index)
-            
-
-        
+            current = self.get_next_vertex(distance, visited, current)
         for i in range(self.graph.num_vertices):
             (x,y) = self.graph.index_to_pos(i)
             map[x][y] = distance[i]
-        return map
+        return distance
 
 
             

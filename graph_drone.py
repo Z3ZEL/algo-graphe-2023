@@ -1,4 +1,15 @@
 class Graph_drone:
+
+    def __init__(self, N):
+        self.num_vertices = N * N
+        self.N = N
+        self.adj_matrix = [[0 for _ in range(self.num_vertices)] for _ in range(self.num_vertices)]
+        self.__init_adj_matrix()
+        self.world = [[0 for _ in range(N)] for _ in range(N)]
+        self.villages = {}
+        self.villages_constrain = []
+        self.drones = []
+
     def __init_adj_matrix(self):
         for i in range(self.num_vertices):
             if i%self.N != self.N - 1:
@@ -18,16 +29,6 @@ class Graph_drone:
             if i >= self.N and i%self.N != 0:
                 self.adj_matrix[i][i-self.N-1] = 1
         
-
-    def __init__(self, N):
-        self.num_vertices = N * N
-        self.N = N
-        self.adj_matrix = [[0 for _ in range(self.num_vertices)] for _ in range(self.num_vertices)]
-        self.__init_adj_matrix()
-        self.world = [[0 for _ in range(N)] for _ in range(N)]
-        self.villages = {}
-        self.villages_constrain = []
-        self.drones = []
 
     def pos_to_index(self, x, y):
         return self.N * y + x
@@ -177,6 +178,7 @@ class Graph_drone:
     def print_data(self):
         print("Villages :", self.villages)
         print("Drones :", self.drones)
+
     def print_vilage_constrains(self):
         print("Village constrains :")
         for i in range(len(self.villages_constrain)):

@@ -2,13 +2,14 @@ from graph_encoding import decode_graph_string
 from graph_drone import Graph_drone
 from dijkstra import Dijkstra
 from math import sqrt
+import subprocess
 import random
 
 ###--------PARAMETERS--------
 #TODO: SET PARAMETERS IN COMMAND LINE
 
 N = 100 #NODE NUMBER
-V = 3 #VILLAGE NUMBER
+V = 5 #VILLAGE NUMBER
 K = 2 #DRONE NUMBER
 
 n = int(sqrt(N)) #WORLD SIZE
@@ -36,21 +37,39 @@ graph.print_data()
 
 
 
-# PRIM ALGORITHM
+# DIJKSTRA ALGORITHM
 
 algo = Dijkstra(graph)
 
-path = algo.caculate(graph.get_drone(0))
+#VILLAGE GRAPH
 
-print(path)
+village_graph = [[0 for _ in range(V)] for _ in range(V)]
 
+for i in range(V):
+    distance = algo.caculate(graph.get_village(i + 1))
+    for j in range(V):
+        village_graph[i][j] = distance[j]
+        village_graph[j][i] = distance[j]
 
+print("Village Adj Graph :")
+for i in range(len(village_graph)):
+    for j in range(len(village_graph[0])):
+        print(village_graph[i][j], end=' ')
+    print()
 
+def create_dot_file(adj_matrix, filename):
+    with open(filename, 'w') as file:
+        # Write the header of the DOT file
+        file.write("graph {\n")
+        # Loop through all the vertices
+        for i in range(len(adj_matrix)):
+            # Loop through all the adjacent vertices
+            for j in range(i, len(adj_matrix[i])):
+                # If there is an edge between i and j, add it to the DOT file
+                if adj_matrix[i][j] > 0 and i != j:
+                    file.write(f"    {i+1} -- {j+1} [label=\"{adj_matrix[i][j]}\"];\n")
+        # Write the footer of the DOT file
+        file.write("}")
+        subprocess.run([f'dot -Tpng {filename} -o {filename}.png'], shell=True)
 
-
-
-
-
-
-
-
+create_dot_file(village_graph, 'village_graph.dot')
