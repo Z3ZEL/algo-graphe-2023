@@ -8,14 +8,14 @@ import random
 ###--------PARAMETERS--------
 #TODO: SET PARAMETERS IN COMMAND LINE
 
-N = 25 #NODE NUMBER
-V = 3 #VILLAGE NUMBER
-K = 2 #DRONE NUMBER
+N = 100 #NODE NUMBER
+V = 5 #VILLAGE NUMBER
+K = 0 #DRONE NUMBER
 
 n = int(sqrt(N)) #WORLD SIZE
 
 #RANDOM INSTANCE SEED
-random.seed(3)
+random.seed(1)
 
 
 #GENERATE RANDOM VILLAGE 
@@ -72,6 +72,6 @@ def create_dot_file(adj_matrix, filename):
                     file.write(f"    {i+1} -- {j+1} [label=\"{adj_matrix[i][j]}\"];\n")
         # Write the footer of the DOT file
         file.write("}")
-        subprocess.run([f'dot -Tpng {filename} -o {filename}.png'], shell=True)
+        subprocess.run([f'circo -Tpng {filename} -o {filename}.png'], shell=True)
 
 create_dot_file(village_graph, 'village_graph.dot')
