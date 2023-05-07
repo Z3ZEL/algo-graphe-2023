@@ -48,8 +48,9 @@ village_graph = [[0 for _ in range(V)] for _ in range(V)]
 for i in range(V):
     distance = algo.caculate(graph.get_village(i + 1))
     for j in range(V):
-        village_graph[i][j] = distance[j]
-        village_graph[j][i] = distance[j]
+        if i != j:
+            village_graph[i][j] = distance[j]
+            village_graph[j][i] = distance[j]
 
 print("Village Adj Graph :")
 for i in range(len(village_graph)):
