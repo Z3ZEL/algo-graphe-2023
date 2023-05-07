@@ -8,14 +8,14 @@ import random
 ###--------PARAMETERS--------
 #TODO: SET PARAMETERS IN COMMAND LINE
 
-N = 100 #NODE NUMBER
-V = 5 #VILLAGE NUMBER
+N = 25 #NODE NUMBER
+V = 3 #VILLAGE NUMBER
 K = 2 #DRONE NUMBER
 
 n = int(sqrt(N)) #WORLD SIZE
 
 #RANDOM INSTANCE SEED
-random.seed(1)
+random.seed(3)
 
 
 #GENERATE RANDOM VILLAGE 
@@ -41,6 +41,7 @@ graph.print_data()
 
 algo = Dijkstra(graph)
 
+
 #VILLAGE GRAPH
 
 village_graph = [[0 for _ in range(V)] for _ in range(V)]
@@ -49,8 +50,9 @@ for i in range(V):
     distance = algo.caculate(graph.get_village(i + 1))
     for j in range(V):
         if i != j:
-            village_graph[i][j] = distance[j]
-            village_graph[j][i] = distance[j]
+            village_coord = graph.get_village(j + 1)
+            idx = village_coord[1] * n + village_coord[0]
+            village_graph[i][j] = distance[idx]
 
 print("Village Adj Graph :")
 for i in range(len(village_graph)):
