@@ -25,7 +25,7 @@ world_string = ''
 for v in range(V):
     (x, y) = (random.randint(0,n-1), random.randint(0,n-1))
     world_string += str(v+1)+': (' +str(x)+','+str(y)+')\n'
-    if v < K-1:
+    if v < K:
         world_string += 'D: '+'(' +str(x)+','+str(y)+')\n'
 
 
