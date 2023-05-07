@@ -41,16 +41,6 @@ graph.print_data()
 
 algo = Dijkstra(graph)
 
-print("Distance map pour chaque villlage (DEBUG)")
-for i in range (1,V+1):
-    distance = algo.caculate(graph.get_village(i))
-    for j in range(len(distance)):
-        if j % n == 0:
-            print()
-        print(distance[j], end=' ')
-    print()
-    print(graph.get_village(i))
-
 #VILLAGE GRAPH
 
 village_graph = [[0 for _ in range(V)] for _ in range(V)]
