@@ -105,14 +105,14 @@ def village_order_1(graph,village_graph):                                       
         for village in villages :   
             if village not in already_seen: 
                 (t_min,index_drone) = closest_drone_to(drones,village,village_graph)        #get the idnex of the closest drone to the village
-                print(village, (t_min,index_drone))
+                print("le village :", village," appelle le drone du village :" ,index_drone," et met  :",t_min," minutes pour s'y rendre.")
                 t_loss+=t_min                                                             
                 drones[index_drone] = village                                               #move the drone to its new location 
                 already_seen.append(village)
 
     return t_loss
 
-print(village_order_1(graph,village_graph))
+print("Temps total pour les fuites : ",village_order_1(graph,village_graph))
 
 def village_order_2(graph,village_graph):                                               #Second idea : for each drone move it to the closest village 
     t_loss = 0
@@ -128,7 +128,7 @@ def village_order_2(graph,village_graph):                                       
             if(len(villages) ==0):
                 break
             (t_min,village_index) = closest_village_to(villages,drones[drone_index],village_graph)
-            print(drones[drone_index] ,(t_min,village_index))
+            print("le drone du village :", drones[drone_index]," se déplace vers :" ,village_index," en :",t_min," minutes.")
             drones[drone_index] = village_index                                               #move the drone to its new location 
             already_seen.append(village_index)
             villages.remove(village_index)
@@ -137,4 +137,4 @@ def village_order_2(graph,village_graph):                                       
         
     return t_loss
 
-print(village_order_2(graph,village_graph))
+print("Temps total pour les fuites : ", village_order_2(graph,village_graph))
