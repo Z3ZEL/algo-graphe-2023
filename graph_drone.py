@@ -126,6 +126,12 @@ class Graph_drone:
     def remove_drone(self, drone):
         del self.drones[drone]
 
+    def drone_to_village_index(self,drone):
+        for index in range(1,len(self.villages)+1):
+            if(drone == self.villages[index]):
+                return index - 1
+        return None
+    
     def print_world(self):
         print("World :")
         world_string = [[0 for _ in range(self.N)] for _ in range(self.N)]
