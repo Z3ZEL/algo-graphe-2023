@@ -15,7 +15,7 @@ K = 2 #DRONE NUMBER
 n = int(sqrt(N)) #WORLD SIZE
 
 #RANDOM INSTANCE SEED
-random.seed(3)
+random.seed(1)
 
 
 #GENERATE RANDOM VILLAGE 
@@ -25,7 +25,7 @@ world_string = ''
 for v in range(V):
     (x, y) = (random.randint(0,n-1), random.randint(0,n-1))
     world_string += str(v+1)+': (' +str(x)+','+str(y)+')\n'
-    if v < K-1:
+    if v < K:
         world_string += 'D: '+'(' +str(x)+','+str(y)+')\n'
 
 
@@ -73,7 +73,7 @@ def create_dot_file(adj_matrix, filename):
                     file.write(f"    {i+1} -- {j+1} [label=\"{adj_matrix[i][j]}\"];\n")
         # Write the footer of the DOT file
         file.write("}")
-        subprocess.run([f'dot -Tpng {filename} -o {filename}.png'], shell=True)
+        subprocess.run([f'circo -Tpng {filename} -o {filename}.png'], shell=True)
 
 create_dot_file(village_graph, 'village_graph.dot')
 

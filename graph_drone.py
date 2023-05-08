@@ -150,7 +150,7 @@ class Graph_drone:
         for x in range(self.N):
             for y in range(self.N):
                 print(world_string[x][y], end=' ')
-            print("- "+str(x))
+            print("| "+str(x))
         for _ in range(self.N):
             print("-", end=' ')
         print()
