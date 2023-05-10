@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+graph_village
+graph_village.png
+village_graph
+village_graph.dot

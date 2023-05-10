@@ -25,14 +25,8 @@ def decode_graph_line(graph, village_constrains, line):
         #Check if there is a 'R' in constrain and replace it by -1
         line = line.replace('R', '0')
 
-        
-
-
         v1, v2 = map(int, line.split(':')[1].strip()[1:-1].split(','))
         village_constrains.append((v1,v2))
-        
-        # graph.add_edge(v1, v2)
-        #! Gerer les poids des aretes
 
 def make_constrains(graph, village_constrains):
     #Check if world definition contains constrains, if not, init no constrains
@@ -43,7 +37,6 @@ def make_constrains(graph, village_constrains):
         for constrain in village_constrains:
             (v1,v2) = constrain
             graph.add_village_constrain(v1+1, v2+1)
-
 
 def decode_graph_file(N, filename):
     with open(filename, 'r') as file:
@@ -66,10 +59,3 @@ def decode_graph_string(N, strings):
         decode_graph_line(graph, village_constrains, line)
     make_constrains(graph, village_constrains)
     return graph
-            
-
-
-
-
-    
-        

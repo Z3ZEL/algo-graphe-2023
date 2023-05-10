@@ -29,7 +29,6 @@ class Graph_drone:
             if i >= self.N and i%self.N != 0:
                 self.adj_matrix[i][i-self.N-1] = 1
         
-
     def pos_to_index(self, x, y):
         return self.N * y + x
     def index_to_pos(self, index):
@@ -107,8 +106,6 @@ class Graph_drone:
         dst -= 1
         return self.villages_constrain[src][dst] == 1
     
-
-
     ###--------------------
 
     def add_drone(self, drone):

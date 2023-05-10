@@ -6,7 +6,6 @@ import subprocess
 import random
 
 ###--------PARAMETERS--------
-#TODO: SET PARAMETERS IN COMMAND LINE
 
 N = 100 #NODE NUMBER
 V = 5 #VILLAGE NUMBER
@@ -17,9 +16,7 @@ n = int(sqrt(N)) #WORLD SIZE
 #RANDOM INSTANCE SEED
 random.seed(1)
 
-
 #GENERATE RANDOM VILLAGE 
-
 world_string = ''
 
 for v in range(V):
@@ -27,15 +24,10 @@ for v in range(V):
     world_string += str(v+1)+': (' +str(x)+','+str(y)+')\n'
     if v < K:
         world_string += 'D: '+'(' +str(x)+','+str(y)+')\n'
-
-
     
 graph = decode_graph_string(n, world_string)
-
 graph.print_world()
 graph.print_data()
-
-
 
 # DIJKSTRA ALGORITHM
 
@@ -43,7 +35,6 @@ algo = Dijkstra(graph)
 
 
 #VILLAGE GRAPH
-
 village_graph = [[0 for _ in range(V)] for _ in range(V)]
 
 for i in range(V):
@@ -77,7 +68,6 @@ def create_dot_file(adj_matrix, filename):
 
 create_dot_file(village_graph, 'village_graph.dot')
 
-
 def closest_drone_to(drones, village ,village_graph):
     min = 1000000000
     index = -1
@@ -96,7 +86,8 @@ def closest_village_to(villages, drone ,village_graph):
             index = village
     return(min,index)
 
-def village_order_1(graph,village_graph):                                               #First idea : for each village get the closest drone 
+#First idea : for each village get the closest drone 
+def village_order_1(graph,village_graph):                                            
     t_loss = 0
     drones = list(map(graph.drone_to_village_index,graph.drones))
     already_seen = drones
@@ -107,14 +98,15 @@ def village_order_1(graph,village_graph):                                       
                 (t_min,index_drone) = closest_drone_to(drones,village,village_graph)        #get the idnex of the closest drone to the village
                 print("le village :", village," appelle le drone du village :" ,index_drone," et met  :",t_min," minutes pour s'y rendre.")
                 t_loss+=t_min                                                             
-                drones[index_drone] = village                                               #move the drone to its new location 
+                drones[index_drone] = village       #move the drone to its new location 
                 already_seen.append(village)
 
     return t_loss
 
 print("Temps total pour les fuites : ",village_order_1(graph,village_graph))
 
-def village_order_2(graph,village_graph):                                               #Second idea : for each drone move it to the closest village 
+#Second idea : for each drone move it to the closest village 
+def village_order_2(graph,village_graph):
     t_loss = 0
     drones = list(map(graph.drone_to_village_index,graph.drones))
     already_seen = drones.copy()
@@ -134,7 +126,6 @@ def village_order_2(graph,village_graph):                                       
             villages.remove(village_index)
             t_tot.append(t_min)
         t_loss += max(t_tot)
-        
     return t_loss
 
 print("Temps total pour les fuites : ", village_order_2(graph,village_graph))
